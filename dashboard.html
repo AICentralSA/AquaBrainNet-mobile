@@ -35,18 +35,21 @@
         }
         .logo-container img {
             width: 40px;
-            border-radius: 8px;
+            height: 40px;
+            border-radius: 50%;
         }
         .header h1 {
             font-size: 18px;
             margin-left: 10px;
+            white-space: nowrap;
         }
         .user-profile {
             display: flex;
             align-items: center;
             gap: 15px;
+            position: relative;
         }
-        .profile-pic {
+        .profile-pic, .notification-icon {
             width: 40px;
             height: 40px;
             background-color: #f8fafc;
@@ -59,10 +62,22 @@
             cursor: pointer;
             position: relative;
         }
-        .profile-pic img {
+        .profile-pic img, .notification-icon img {
             width: 100%;
             height: 100%;
             border-radius: 50%;
+        }
+        .tooltip {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: #f8fafc;
+            color: #1e293b;
+            border-radius: 8px;
+            padding: 5px 10px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            font-size: 12px;
         }
         .dropdown {
             display: none;
@@ -97,10 +112,10 @@
         }
         .icon-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             width: 100%;
-            max-width: 400px;
+            max-width: 350px;
             margin-top: 20px;
         }
         .icon-item {
@@ -115,21 +130,23 @@
             transform: scale(1.1);
         }
         .icon-item img {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             margin-bottom: 10px;
-            border-radius: 20px;
+            border-radius: 25px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .icon-item span {
-            font-size: 14px;
+            font-size: 16px;
             text-align: center;
             color: #f8fafc;
         }
         .icon-grid-center {
-            display: flex;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
             width: 100%;
+            max-width: 350px;
             margin-top: 20px;
         }
         .footer {
@@ -143,9 +160,15 @@
             margin-bottom: 10px;
         }
         .footer .logo-container img {
-            width: 40px;
+            width: 80px;
             height: auto;
             border-radius: 8px;
+        }
+        .footer .logo-container a {
+            text-decoration: none;
+        }
+        .footer .logo-container a:hover {
+            opacity: 0.8;
         }
         .footer .copyright {
             font-size: 12px;
@@ -162,6 +185,10 @@
             <h1>AquaBrain Net</h1>
         </div>
         <div class="user-profile">
+            <div class="notification-icon" onclick="toggleTooltip()">
+                <img src="https://icons.veryicon.com/png/o/miscellaneous/fine-fillet-icon/notification-bell.png" alt="Notification Icon">
+            </div>
+            <div class="tooltip" id="tooltip">Disease detected</div>
             <div class="profile-pic" onclick="toggleDropdown()">
                 <img src="https://www.svgrepo.com/show/382100/female-avatar-girl-face-woman-user-7.svg" alt="Profile Icon">
             </div>
@@ -183,12 +210,12 @@
                 <img src="https://i.ibb.co/pbxB1hG/sustainable.png" alt="Sustainable Feed">
                 <span>Feed</span>
             </div>
+        </div>
+        <div class="icon-grid-center">
             <div class="icon-item" onclick="window.location.href='feedingpatterns.html'">
                 <img src="https://i.ibb.co/JQ9WYN1/feed-pattern.png" alt="Feeding Patterns">
                 <span>Patterns</span>
             </div>
-        </div>
-        <div class="icon-grid-center">
             <div class="icon-item" onclick="window.location.href='feedingschedules.html'">
                 <img src="https://i.ibb.co/XzyGCN0/feed-schedule.png" alt="Feeding Schedules">
                 <span>Schedules</span>
@@ -213,6 +240,11 @@
             const params = getQueryParams();
             dropdown.textContent = 'Hi ' + (params.contactName || 'Thembeka') + '!';
             dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function toggleTooltip() {
+            const tooltip = document.getElementById('tooltip');
+            tooltip.style.display = tooltip.style.display === 'block' ? 'none' : 'block';
         }
 
         function getQueryParams() {
