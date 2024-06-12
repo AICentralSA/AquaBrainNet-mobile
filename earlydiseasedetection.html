@@ -1,72 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Early Disease Detection - AquaBrain Net</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shadcn-ui@1.0.0/dist/shadcn.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="https://dominionsolutions.co.za/wp-content/uploads/2024/02/dominionsolutions.png">
     <style>
         body {
             background: linear-gradient(180deg, #012246, #005f73);
-            color: #f8fafc;
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            color: #f8fafc;
+            height: 100vh;
+            justify-content: space-between;
             box-sizing: border-box;
         }
-
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
             padding: 10px 20px;
             background-color: rgba(30, 41, 59, 0.8);
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            position: relative;
-            z-index: 1001;
+            z-index: 1000;
             border-radius: 8px;
         }
-
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 10px;
         }
-
         .logo-container img {
-            width: 100px;
-            cursor: pointer;
-            border-radius: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
         }
-
         .header h1 {
-            font-size: 24px;
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
+            font-size: 18px;
+            margin-left: 10px;
+            white-space: nowrap;
         }
-
-        .header .farm-info {
-            font-size: 14px;
-            text-align: right;
-        }
-
         .user-profile {
             display: flex;
             align-items: center;
             gap: 15px;
             position: relative;
-            padding-right: 20px;
         }
-
-        .profile-pic {
+        .profile-pic, .notification-icon {
             width: 40px;
             height: 40px;
             background-color: #f8fafc;
@@ -79,20 +62,12 @@
             cursor: pointer;
             position: relative;
         }
-
-        .profile-pic img {
+        .profile-pic img, .notification-icon img {
             width: 100%;
             height: 100%;
             border-radius: 50%;
         }
-
-        .calendar {
-            font-size: 24px;
-            color: #f8fafc;
-            cursor: pointer;
-        }
-
-        .dropdown {
+        .tooltip {
             display: none;
             position: absolute;
             top: 50px;
@@ -100,86 +75,41 @@
             background-color: #f8fafc;
             color: #1e293b;
             border-radius: 8px;
+            padding: 5px 10px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            font-size: 12px;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 10px;
+            background-color: #f8fafc;
+            color: #1e293b;
+            border-radius: 8px;
             padding: 10px;
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
             animation: fadeIn 0.3s ease-in-out;
         }
-
         @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: translateY(-10px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
-        .menu-button {
-            font-size: 24px;
-            cursor: pointer;
-            color: #f8fafc;
-        }
-
-        .sidebar {
-            position: fixed;
-            left: -300px;
-            top: 0;
-            width: 250px;
-            height: 100%;
-            background-color: rgba(51, 65, 85, 0.9);
-            padding: 100px 20px 20px 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-            transition: left 0.3s;
-            z-index: 1000;
-            border-radius: 8px;
-        }
-
-        .sidebar a {
-            display: block;
-            color: #f8fafc;
-            text-decoration: none;
-            padding: 10px 0;
-            margin: 10px 0;
-            border-radius: 8px;
-        }
-
-        .sidebar a:hover {
-            text-decoration: underline;
-            background-color: rgba(30, 41, 59, 0.8);
-        }
-
-        .sidebar.open {
-            left: 0;
-        }
-
-        .container {
-            padding: 20px;
-            margin-top: 20px;
-            width: 100%;
-            max-width: 1200px;
-        }
-
-        .hero-banner {
-            width: 100%;
-            max-width: 1200px;
+        .main-content {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            margin-bottom: 20px;
-            gap: 20px;
+            flex-grow: 1;
+            width: 100%;
+            padding: 20px 10px;
+            box-sizing: border-box;
         }
-
-        .hero-banner img {
-            width: 45%;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-
         .alert-bar {
             background-color: red;
             color: white;
@@ -191,189 +121,76 @@
             text-transform: uppercase;
             animation: flash 1s linear infinite;
         }
-
         @keyframes flash {
-            0%,
-            100% {
+            0%, 100% {
                 opacity: 1;
             }
-
             50% {
                 opacity: 0;
             }
         }
-
-        .image-caption {
+        .content-section {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
             text-align: center;
-            margin-top: -10px;
-            font-weight: bold;
         }
-
-        h2 {
-            margin-top: 40px;
+        .content-section h2 {
+            margin: 0 0 20px 0;
         }
-
-        .disease-section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 40px;
+        .content-section p {
+            margin: 10px 0;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin: 20px 0;
         }
-
-        table,
-        th,
-        td {
+        table, th, td {
             border: 1px solid #f8fafc;
         }
-
-        th,
-        td {
+        th, td {
             padding: 10px;
             text-align: left;
         }
-
-        .chart {
-            width: 100%;
-            height: 400px;
-            margin-top: 20px;
-        }
-
-        .tooltip {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-        }
-
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 220px;
-            background-color: #555;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -110px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
-
         .footer {
             text-align: center;
-            margin-top: 20px;
+            padding: 20px 0;
         }
-
         .footer .logo-container {
-            margin-bottom: 10px;
             display: flex;
             justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
         }
-
         .footer .logo-container img {
-            width: 60px;
+            width: 80px;
             height: auto;
-            border-radius: 15px;
+            border-radius: 8px;
         }
-
+        .footer .logo-container a {
+            text-decoration: none;
+        }
+        .footer .logo-container a:hover {
+            opacity: 0.8;
+        }
         .footer .copyright {
             font-size: 12px;
             color: #f8fafc;
         }
-
-        .gallery {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .modal-gallery {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-gallery img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 10px;
-        }
-
-        .close-gallery {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 30px;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 18px;
-            }
-
-            .header .farm-info {
-                font-size: 12px;
-            }
-
-            .container {
-                padding: 10px;
-                gap: 10px;
-                margin-top: 50px;
-                flex-direction: column;
-                align-items: center;
-                overflow-x: visible;
-            }
-
-            .footer img {
-                width: 60px;
-            }
-
-            .hero-banner img {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-        }
     </style>
 </head>
-
 <body>
-    <!-- Header section -->
     <header class="header">
         <div class="logo-container">
             <a href="dashboard.html">
                 <img src="https://i.ibb.co/hX2r0Rw/AquaBrain-Net.png" alt="AquaBrain Net Logo">
             </a>
             <h1>AquaBrain Net</h1>
-        </div>
-        <div class="farm-info" id="farm-info">
-            <p><strong>Farm Name:</strong> <span id="farmNameDisplay">Aqua Marine Farm</span></p>
-            <p><strong>Address:</strong> <span id="addressDisplay">Cape Town, South Africa</span></p>
         </div>
         <div class="user-profile">
             <div class="profile-pic" onclick="toggleDropdown()">
@@ -384,85 +201,63 @@
             <div class="menu-button" onclick="toggleSidebar(event)">&#9776;</div>
         </div>
     </header>
-
-    <!-- Hero banner section -->
-    <div class="hero-banner">
-        <img id="heroImage" src="https://i.ibb.co/yF1X8Zm/Whats-App-Image-2024-06-11-at-21-53-47-1.jpg" alt="Hero Image">
-        <div class="image-caption" id="imageCaption">Tilapia</div>
-    </div>
-
-    <!-- Alert Bar -->
-    <div class="alert-bar">Infection Detected</div>
-
-    <!-- Main content container -->
-    <div class="container">
-        <h2>Early Disease Detection</h2>
-        <p>Identify and prevent diseases early using camera data and AI. Hover over each disease for more info.</p>
-
-        <!-- New Content Start -->
-        <div style="text-align: center;">
-            <div class="container main-content" style="background: #fff; padding: 20px; margin: 20px auto; max-width: 1200px; color: #000;">
-                <h2>Overview</h2>
-                <p>Our innovative AquaBrain Net system utilizes cutting-edge technology to detect diseases at an early stage in aquatic environments. This page provides insights into our recent detection activities.</p>
-                <div class="chart" id="diseaseChart" style="margin: 20px 0;"></div>
-                <table style="width: 100%; margin: 20px 0; border-collapse: collapse;">
-                    <thead>
-                        <tr>
-                            <th style="background-color: #f2f2f2; border: 1px solid #ddd; padding: 8px; color: #000;">Date</th>
-                            <th style="background-color: #f2f2f2; border: 1px solid #ddd; padding: 8px; color: #000;">Disease Detected</th>
-                            <th style="background-color: #f2f2f2; border: 1px solid #ddd; padding: 8px; color: #000;">Severity</th>
-                            <th style="background-color: #f2f2f2; border: 1px solid #ddd; padding: 8px; color: #000;">Action Taken</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;">2024-06-01</td>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;"><span class="tooltip" data-tooltip="No disease detected on this date.">None</span></td>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;">-</td>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;">-</td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;">2024-06-02</td>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;"><span class="tooltip" data-tooltip="Mild infection detected.">Infection</span></td>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;">Mild</td>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;">Administered treatment</td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;">2024-06-03</td>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;"><span class="tooltip" data-tooltip="No disease detected on this date.">None</span></td>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;">-</td>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;">-</td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;">2024-06-04</td>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;"><span class="tooltip" data-tooltip="Severe infection detected. Immediate action required.">Infection</span></td>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;">Severe</td>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;">Quarantine and treat</td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;">2024-06-05</td>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;"><span class="tooltip" data-tooltip="No disease detected on this date.">None</span></td>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;">-</td>
-                            <td style="border: 1px solid #ddd; padding: 8px; color: #000;">-</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    
+    <div class="main-content">
+        <div class="alert-bar">Infection Detected</div>
+        <div class="content-section">
+            <h2>Early Disease Detection</h2>
+            <p>Identify and prevent diseases early using camera data and AI. Hover over each disease for more info.</p>
         </div>
-        <!-- New Content End -->
+        <div class="content-section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Disease Detected</th>
+                        <th>Severity</th>
+                        <th>Action Taken</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2024-06-01</td>
+                        <td>None</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>2024-06-02</td>
+                        <td>Infection</td>
+                        <td>Mild</td>
+                        <td>Administered treatment</td>
+                    </tr>
+                    <tr>
+                        <td>2024-06-03</td>
+                        <td>None</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>2024-06-04</td>
+                        <td>Infection</td>
+                        <td>Severe</td>
+                        <td>Quarantine and treat</td>
+                    </tr>
+                    <tr>
+                        <td>2024-06-05</td>
+                        <td>None</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <!-- Gallery Modal -->
-    <div class="modal-gallery" id="modalGallery">
-        <span class="close-gallery" onclick="closeModal()">&times;</span>
-        <img id="modalImage" src="" alt="Gallery Image">
-    </div>
-
-    <!-- Footer section -->
     <div class="footer">
         <div class="logo-container">
-            <a href="index.html">
-                <img src="https://dominionsolutions.co.za/wp-content/uploads/2024/02/dominionsolutions.png" alt="Dominion Solutions Logo" title="Created by: AICentral.co.za">
+            <a href="https://dominionsolutions.co.za/">
+                <img src="https://dominionsolutions.co.za/wp-content/uploads/2024/02/dominionsolutions.png" alt="Dominion Solutions Logo">
             </a>
         </div>
         <div class="copyright">
@@ -470,54 +265,37 @@
         </div>
     </div>
 
-    <!-- Include Plotly.js -->
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script>
-        // JavaScript code for Plotly.js
-        const dates = ['2024-06-01', '2024-06-02', '2024-06-03', '2024-06-04', '2024-06-05'];
-        const severity = [0, 1, 0, 2, 0];
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdown');
+            const params = getQueryParams();
+            dropdown.textContent = 'Hi ' + (params.contactName || 'Thembeka') + '!';
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
 
-        const data = [{
-            x: dates,
-            y: severity,
-            type: 'scatter',
-            mode: 'lines+markers',
-            fill: 'tozeroy',
-            marker: {color: 'rgba(255, 99, 132, 1)'},
-            line: {color: 'rgba(255, 99, 132, 1)'}
-        }];
+        function toggleTooltip() {
+            const tooltip = document.getElementById('tooltip');
+            tooltip.style.display = tooltip.style.display === 'block' ? 'none' : 'block';
+        }
 
-        const layout = {
-            title: 'Disease Severity Over Time',
-            xaxis: {
-                title: 'Date'
-            },
-            yaxis: {
-                title: 'Severity',
-                tickvals: [0, 1, 2],
-                ticktext: ['No Disease', 'Mild Infection', 'Severe Infection'],
-                range: [0, 2.5]
-            }
-        };
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                username: params.get('username'),
+                email: params.get('email'),
+                farmName: params.get('companyName'),
+                address: params.get('location'),
+                contactName: params.get('contactName'),
+                mobileNumber: params.get('mobileNumber')
+            };
+        }
 
-        Plotly.newPlot('diseaseChart', data, layout);
-    </script>
+        function displayUserInfo() {
+            const params = getQueryParams();
+            document.getElementById('contactNameDisplay').textContent = params.contactName || 'Thembeka';
+        }
 
-    <!-- Tooltips JavaScript -->
-    <script>
-        document.querySelectorAll('.tooltip').forEach(item => {
-            item.addEventListener('mouseover', event => {
-                const tooltipText = document.createElement('span');
-                tooltipText.className = 'tooltiptext';
-                tooltipText.innerHTML = event.target.dataset.tooltip;
-                event.target.appendChild(tooltipText);
-            });
-
-            item.addEventListener('mouseout', event => {
-                event.target.querySelector('.tooltiptext').remove();
-            });
-        });
+        window.onload = displayUserInfo;
     </script>
 </body>
-
 </html>
