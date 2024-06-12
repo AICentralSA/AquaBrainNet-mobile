@@ -14,7 +14,7 @@
             margin: 0;
             font-family: 'Roboto', sans-serif;
             color: #f8fafc;
-            height: 100vh;
+            min-height: 100vh;
             justify-content: space-between;
             box-sizing: border-box;
         }
@@ -110,11 +110,15 @@
             padding: 20px 10px;
             box-sizing: border-box;
         }
+        .selected-text {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
         .tilapia-icon {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             border-radius: 25px;
-            margin: 20px 0;
+            margin: 10px 0;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .tilapia-caption {
@@ -129,6 +133,7 @@
             width: 100%;
             max-width: 350px;
             margin-top: 20px;
+            margin-bottom: 40px;
         }
         .icon-item {
             display: flex;
@@ -142,8 +147,8 @@
             transform: scale(1.1);
         }
         .icon-item img {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             margin-bottom: 10px;
             border-radius: 25px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -184,6 +189,8 @@
         .footer {
             text-align: center;
             padding: 20px 0;
+            width: 100%;
+            background: linear-gradient(180deg, #005f73, #012246);
         }
         .footer .logo-container {
             display: flex;
@@ -229,6 +236,7 @@
     </header>
     
     <div class="main-content">
+        <div class="selected-text">Fish Selected</div>
         <img src="https://i.ibb.co/5BngHx9/DALL-E-2024-06-12-01-42-41-A-realistic-icon-of-a-South-African-Tilapia-in-a-square-aspect-ratio-The.webp" alt="Tilapia Icon" class="tilapia-icon">
         <div class="tilapia-caption">Tilapia</div>
 
