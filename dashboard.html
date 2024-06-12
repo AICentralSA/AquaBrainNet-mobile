@@ -4,107 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - AquaBrain Net</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shadcn-ui@1.0.0/dist/shadcn.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="https://dominionsolutions.co.za/wp-content/uploads/2024/02/dominionsolutions.png">
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            color: #f8fafc;
+        body {
             background: linear-gradient(180deg, #012246, #005f73);
-        }
-
-        .main-content {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex: 1;
-            position: relative;
-            z-index: 1;
-        }
-
-        .content-wrapper {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            padding: 20px;
-            width: 100%;
-            max-width: 1200px;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .app-icon {
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
-            cursor: pointer;
-            text-decoration: none;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
             color: #f8fafc;
-            transition: transform 0.2s;
+            height: 100vh;
+            justify-content: space-between;
+            box-sizing: border-box;
         }
-
-        .app-icon:hover {
-            transform: scale(1.05);
-        }
-
-        .app-icon img {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 5px;
-        }
-
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
             padding: 10px 20px;
             background-color: rgba(30, 41, 59, 0.8);
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 1001;
+            z-index: 1000;
             border-radius: 8px;
         }
-
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 10px;
         }
-
         .logo-container img {
-            width: 100px;
-            cursor: pointer;
-            border-radius: 15px;
+            width: 40px;
+            border-radius: 8px;
         }
-
         .header h1 {
-            font-size: 24px;
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
+            font-size: 18px;
+            margin-left: 10px;
         }
-
-        .header .farm-info {
-            font-size: 14px;
-            text-align: right;
-        }
-
         .user-profile {
             display: flex;
             align-items: center;
             gap: 15px;
-            position: relative;
-            padding-right: 20px;
         }
-
         .profile-pic {
             width: 40px;
             height: 40px;
@@ -118,18 +59,16 @@
             cursor: pointer;
             position: relative;
         }
-
         .profile-pic img {
             width: 100%;
             height: 100%;
             border-radius: 50%;
         }
-
         .dropdown {
             display: none;
             position: absolute;
             top: 50px;
-            right: 0;
+            right: 10px;
             background-color: #f8fafc;
             color: #1e293b;
             border-radius: 8px;
@@ -137,7 +76,6 @@
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
             animation: fadeIn 0.3s ease-in-out;
         }
-
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -148,97 +86,70 @@
                 transform: translateY(0);
             }
         }
-
-        .menu-button {
-            font-size: 24px;
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+            width: 100%;
+            padding: 20px 10px;
+            box-sizing: border-box;
+        }
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 400px;
+            margin-top: 20px;
+        }
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .icon-item:hover {
+            transform: scale(1.1);
+        }
+        .icon-item img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .icon-item span {
+            font-size: 14px;
+            text-align: center;
             color: #f8fafc;
         }
-
-        .sidebar {
-            position: fixed;
-            left: -250px;
-            top: 0;
-            width: 250px;
-            height: 100%;
-            background-color: rgba(51, 65, 85, 0.9);
-            padding: 100px 20px 20px 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-            transition: left 0.3s;
-            z-index: 1000;
-            border-radius: 8px;
-            overflow-y: auto;
+        .icon-grid-center {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 20px;
         }
-
-        .sidebar a {
-            display: block;
-            color: #f8fafc;
-            text-decoration: none;
-            padding: 10px 0;
-            margin: 10px 0;
-            border-radius: 8px;
-        }
-
-        .sidebar a:hover {
-            text-decoration: underline;
-            background-color: rgba(30, 41, 59, 0.8);
-        }
-
-        .sidebar.open {
-            left: 0;
-        }
-
         .footer {
             text-align: center;
-            padding: 10px 0;
-            background-color: rgba(30, 41, 59, 0.8);
-            width: 100%;
-            position: relative;
-            border-radius: 8px;
+            padding: 20px 0;
         }
-
         .footer .logo-container {
             display: flex;
             justify-content: center;
             align-items: center;
             margin-bottom: 10px;
         }
-
         .footer .logo-container img {
-            width: 60px;
+            width: 40px;
             height: auto;
-            border-radius: 15px;
+            border-radius: 8px;
         }
-
         .footer .copyright {
             font-size: 12px;
             color: #f8fafc;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 18px;
-            }
-
-            .header .farm-info {
-                font-size: 12px;
-            }
-
-            .content-wrapper {
-                padding: 10px;
-                gap: 10px;
-                margin-top: 50px;
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .app-icon img {
-                width: 50px;
-                height: 50px;
-            }
-
-            .footer img {
-                width: 50px;
-            }
         }
     </style>
 </head>
@@ -250,66 +161,44 @@
             </a>
             <h1>AquaBrain Net</h1>
         </div>
-        <div class="farm-info" id="farm-info">
-            <p><strong>Farm Name:</strong> <span id="farmNameDisplay">Aqua Marine Farm</span></p>
-            <p><strong>Address:</strong> <span id="addressDisplay">Cape Town, South Africa</span></p>
-        </div>
         <div class="user-profile">
             <div class="profile-pic" onclick="toggleDropdown()">
                 <img src="https://www.svgrepo.com/show/382100/female-avatar-girl-face-woman-user-7.svg" alt="Profile Icon">
             </div>
             <div class="dropdown" id="dropdown">Hi <span id="contactNameDisplay">Thembeka</span>!</div>
-            <div class="menu-button" onclick="toggleSidebar(event)">&#9776;</div>
         </div>
     </header>
     
-    <div class="sidebar" id="sidebar">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="signup.html">Sign Up</a>
-        <a href="logout.html">Logout</a>
-    </div>
-    
     <div class="main-content">
-        <div class="content-wrapper">
-            <!-- App Icon 1 -->
-            <a class="app-icon" href="BiomassMeasurements.html">
+        <div class="icon-grid">
+            <div class="icon-item" onclick="window.location.href='biomassmeasurements.html'">
                 <img src="https://i.ibb.co/k1x56sr/biomass.png" alt="Biomass Measurements">
-                <p>Biomass</p>
-            </a>
-
-            <!-- App Icon 2 -->
-            <a class="app-icon" href="EarlyDiseaseDetection.html">
+                <span>Biomass</span>
+            </div>
+            <div class="icon-item" onclick="window.location.href='earlydiseasedetection.html'">
                 <img src="https://i.ibb.co/QNfpYds/disease-detection.png" alt="Disease Detection">
-                <p>Disease Detection</p>
-            </a>
-
-            <!-- App Icon 3 -->
-            <a class="app-icon" href="SustainableFeeding.html">
+                <span>Disease</span>
+            </div>
+            <div class="icon-item" onclick="window.location.href='sustainablefeeding.html'">
                 <img src="https://i.ibb.co/pbxB1hG/sustainable.png" alt="Sustainable Feed">
-                <p>Sustainable Feed</p>
-            </a>
-
-            <!-- App Icon 4 -->
-            <a classContinuing from the last section, here is the rest of the HTML and CSS:
-
-```html
-            <!-- App Icon 4 -->
-            <a class="app-icon" href="FeedingPatterns.html">
+                <span>Feed</span>
+            </div>
+            <div class="icon-item" onclick="window.location.href='feedingpatterns.html'">
                 <img src="https://i.ibb.co/JQ9WYN1/feed-pattern.png" alt="Feeding Patterns">
-                <p>Feeding Patterns</p>
-            </a>
-
-            <!-- App Icon 5 -->
-            <a class="app-icon" href="FeedingSchedules.html">
+                <span>Patterns</span>
+            </div>
+        </div>
+        <div class="icon-grid-center">
+            <div class="icon-item" onclick="window.location.href='feedingschedules.html'">
                 <img src="https://i.ibb.co/XzyGCN0/feed-schedule.png" alt="Feeding Schedules">
-                <p>Feeding Schedules</p>
-            </a>
+                <span>Schedules</span>
+            </div>
         </div>
     </div>
 
     <div class="footer">
         <div class="logo-container">
-            <a href="index.html">
+            <a href="https://dominionsolutions.co.za/">
                 <img src="https://dominionsolutions.co.za/wp-content/uploads/2024/02/dominionsolutions.png" alt="Dominion Solutions Logo">
             </a>
         </div>
@@ -319,37 +208,11 @@
     </div>
 
     <script>
-        function toggleSidebar(event) {
-            event.stopPropagation();
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('open');
-        }
-
-        function collapseSidebar(event) {
-            const sidebar = document.getElementById('sidebar');
-            if (sidebar.classList.contains('open') && !event.target.closest('.sidebar') && !event.target.closest('.menu-button')) {
-                sidebar.classList.remove('open');
-            }
-        }
-
-        document.addEventListener('click', collapseSidebar);
-
-        document.getElementById('sidebar').addEventListener('click', function(event) {
-            event.stopPropagation();
-        });
-
         function toggleDropdown() {
             const dropdown = document.getElementById('dropdown');
             const params = getQueryParams();
             dropdown.textContent = 'Hi ' + (params.contactName || 'Thembeka') + '!';
             dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-        }
-
-        function showDateTime() {
-            const date = new Date();
-            const dateString = date.toLocaleDateString();
-            const timeString = date.toLocaleTimeString();
-            alert(`Current Date: ${dateString}\nCurrent Time: ${timeString}`);
         }
 
         function getQueryParams() {
@@ -366,10 +229,7 @@
 
         function displayUserInfo() {
             const params = getQueryParams();
-            document.getElementById('farmNameDisplay').textContent = params.farmName || 'Aqua Marine Farm';
-            document.getElementById('addressDisplay').textContent = params.address || 'Cape Town, South Africa';
             document.getElementById('contactNameDisplay').textContent = params.contactName || 'Thembeka';
-            document.getElementById('profileInitial').textContent = params.contactName ? params.contactName.charAt(0) : 'T';
         }
 
         window.onload = displayUserInfo;
