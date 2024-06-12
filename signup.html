@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - AquaBrain Net</title>
+    <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/material.css">
+    <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shadcn-ui@1.0.0/dist/shadcn.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="https://dominionsolutions.co.za/wp-content/uploads/2024/02/dominionsolutions.png">
+    <style>
+        body {
+            background: linear-gradient(180deg, #012246, #005f73);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            width: 100%;
+        }
+        .logo {
+            margin-bottom: 20px;
+        }
+        .logo img {
+            border-radius: 15px;
+        }
+        .signup-container {
+            background-color: #f8fafc;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+        }
+        .signup-container h1 {
+            margin-bottom: 30px;
+            font-size: 28px;
+            color: #1e293b;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .signup-container h2 {
+            margin-bottom: 20px;
+            font-size: 22px;
+            color: #1e293b;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .signup-container input, .signup-container select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .signup-container .form-group-inline {
+            display: flex;
+            gap: 10px;
+        }
+        .signup-container .form-group-inline .form-control {
+            flex: 1;
+        }
+        .signup-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #3b82f6;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            box-sizing: border-box;
+        }
+        .signup-container button:hover {
+            background-color: #2563eb;
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        .form-group label,
+        .form-group-inline .form-control label {
+            display: block;
+            font-size: 14px;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+        .selected-fish-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            gap: 10px;
+        }
+        .selected-fish {
+            width: 50px;
+            height: 50px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .footer .logo-container {
+            margin-bottom: 10px;
+        }
+        .footer .logo-container img {
+            width: 60px;
+            height: auto;
+        }
+        .footer .copyright {
+            font-size: 12px;
+            color: #f8fafc;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .signup-container {
+                padding: 20px;
+                max-width: 100%;
+            }
+            .signup-container h1 {
+                font-size: 24px;
+            }
+            .signup-container input, .signup-container button {
+                font-size: 14px;
+            }
+            .signup-container .form-group-inline {
+                flex-direction: column;
+                gap: 0;
+            }
+            .footer .logo-container img {
+                width: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://i.ibb.co/hX2r0Rw/AquaBrain-Net.png" alt="AquaBrain Net Logo">
+        </div>
+        <div class="signup-container">
+            <h1>Create an Account</h1>
+            <form id="signupForm" onsubmit="return handleFormSubmit(event)">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group-inline">
+                    <div class="form-control">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-control">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
+                </div>
+                <div class="form-group-inline">
+                    <div class="form-control">
+                        <label for="companyName">Farm Name</label>
+                        <input type="text" id="companyName" name="companyName" placeholder="Enter your farm name" required>
+                    </div>
+                    <div class="form-control">
+                        <label for="location">Address</label>
+                        <input type="text" id="location" name="location" placeholder="Enter your address" required>
+                    </div>
+                </div>
+                <div class="form-group-inline">
+                    <div class="form-control">
+                        <label for="contactName">Contact Name</label>
+                        <input type="text" id="contactName" name="contactName" placeholder="Enter contact name" required>
+                    </div>
+                    <div class="form-control">
+                        <label for="mobileNumber">Mobile Number</label>
+                        <input type="tel" id="mobileNumber" name="mobileNumber" placeholder="Enter mobile number" required>
+                    </div>
+                </div>
+                <h2>Fish Farmed</h2>
+                <div class="form-group">
+                    <label for="fishGroup">Fish Group</label>
+                    <select id="fishGroup" name="fishGroup" onchange="updateSpeciesDropdown()" required>
+                        <option value="">Select Fish Group</option>
+                        <option value="marine">Marine Fish</option>
+                        <option value="freshwater">Freshwater Fish</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fishSpecies">Fish Species</label>
+                    <input type="text" id="fishSpecies" />
+                </div>
+                <input type="hidden" id="selectedFishSpecies" name="selectedFishSpecies">
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="https://dominionsolutions.co.za/wp-content/uploads/2024/02/dominionsolutions.png" alt="Dominion Solutions Logo">
+            </a>
+        </div>
+        <div class="copyright">
+            &copy; 2024 AquaBrain Net. All rights reserved.
+        </div>
+    </div>
+    <script>
+        const speciesData = {
+            marine: [
+                { id: 'dusky_kob', text: 'Dusky kob', img: 'https://i.ibb.co/pyKx1xC/trout.png' },
+                { id: 'yellowtail_kingfish', text: 'Yellowtail kingfish', img: 'https://i.ibb.co/9tzcGhG/salmon.png' },
+                { id: 'atlantic_salmon', text: 'Atlantic Salmon', img: 'https://i.ibb.co/9tzcGhG/salmon.png' }
+            ],
+            freshwater: [
+                { id: 'tilapia', text: 'Tilapia', img: 'https://i.ibb.co/pyKx1xC/trout.png' },
+                { id: 'rainbow_trout', text: 'Rainbow trout', img: 'https://i.ibb.co/pyKx1xC/trout.png' },
+                { id: 'catfish', text: 'Catfish', img: 'https://i.ibb.co/pyKx1xC/trout.png' },
+                { id: 'common_carp', text: 'Common carp', img: 'https://i.ibb.co/pyKx1xC/trout.png' },
+                { id: 'koi_carp', text: 'Koi carp', img: 'https://i.ibb.co/pyKx1xC/trout.png' },
+                { id: 'marron_crayfish', text: 'Marron crayfish', img: 'https://i.ibb.co/pyKx1xC/trout.png' }
+            ]
+        };
+
+        let msObject;
+        let selectedFish = [];
+
+        function updateSpeciesDropdown() {
+            const fishGroup = document.getElementById('fishGroup').value;
+            const fishSpeciesInput = document.getElementById('fishSpecies');
+
+            if (msObject) {
+                msObject.destroy();
+            }
+
+            msObject = new ej.dropdowns.MultiSelect({
+                dataSource: speciesData[fishGroup] || [],
+                fields: { text: 'text', value: 'id' },
+                placeholder: 'Select Fish Species',
+                mode: 'CheckBox',
+                showSelectAll: true,
+                showDropDownIcon: true,
+                filterBarPlaceholder: 'Search Species',
+                popupHeight: '250px',
+                change: onSpeciesChange
+            });
+            msObject.appendTo(fishSpeciesInput);
+        }
+
+        function onSpeciesChange(args) {
+            const selectedFishSpecies = args.value[0];  // Assuming single selection for simplicity
+            document.getElementById('selectedFishSpecies').value = selectedFishSpecies;
+
+            args.value.forEach(fishId => {
+                if (!selectedFish.includes(fishId)) {
+                    selectedFish.push(fishId);
+                }
+            });
+
+            const selectedFishContainer = document.getElementById('selectedFishContainer');
+            selectedFishContainer.innerHTML = '';
+            selectedFish.forEach(fishId => {
+                const fish = speciesData.marine.concat(speciesData.freshwater).find(f => f.id === fishId);
+                if (fish) {
+                    const fishIcon = document.createElement('img');
+                    fishIcon.src = fish.img;
+                    fishIcon.alt = fish.text;
+                    fishIcon.classList.add('selected-fish');
+                    selectedFishContainer.appendChild(fishIcon);
+                }
+            });
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = document.getElementById('signupForm');
+            const formData = new FormData(form);
+            const params = new URLSearchParams(formData);
+            window.location.href = 'early-disease-detection.html?' + params.toString();
+        }
+    </script>
+</body>
+</html>

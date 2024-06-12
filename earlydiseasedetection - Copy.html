@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Early Disease Detection - AquaBrain Net</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shadcn-ui@1.0.0/dist/shadcn.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #0779e4 3px solid;
+        }
+        .header a, .header h1 {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            margin: 0 15px;
+        }
+        .main-content {
+            background: #fff;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .chart {
+            width: 100%;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 220px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -110px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>AquaBrain Net: Early Disease Detection</h1>
+        </div>
+    </header>
+    <div class="container main-content">
+        <h2>Overview</h2>
+        <p>Our innovative AquaBrain Net system utilizes cutting-edge technology to detect diseases at an early stage in aquatic environments. This page provides insights into our recent detection activities.</p>
+        
+        <!-- Chart container -->
+        <div class="chart" id="diseaseChart"></div>
+        
+        <!-- Disease Detection Data Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Disease Detected</th>
+                    <th>Severity</th>
+                    <th>Action Taken</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2024-06-01</td>
+                    <td><span class="tooltip" data-tooltip="No disease detected on this date.">None</span></td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>2024-06-02</td>
+                    <td><span class="tooltip" data-tooltip="Mild infection detected.">Infection</span></td>
+                    <td>Mild</td>
+                    <td>Administered treatment</td>
+                </tr>
+                <tr>
+                    <td>2024-06-03</td>
+                    <td><span class="tooltip" data-tooltip="No disease detected on this date.">None</span></td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>2024-06-04</td>
+                    <td><span class="tooltip" data-tooltip="Severe infection detected. Immediate action required.">Infection</span></td>
+                    <td>Severe</td>
+                    <td>Quarantine and treat</td>
+                </tr>
+                <tr>
+                    <td>2024-06-05</td>
+                    <td><span class="tooltip" data-tooltip="No disease detected on this date.">None</span></td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Include Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        // JavaScript code for Plotly.js
+        const dates = ['2024-06-01', '2024-06-02', '2024-06-03', '2024-06-04', '2024-06-05'];
+        const severity = [0, 1, 0, 2, 0];
+
+        const data = [{
+            x: dates,
+            y: severity,
+            type: 'scatter',
+            mode: 'lines+markers',
+            fill: 'tozeroy',
+            marker: {color: 'rgba(255, 99, 132, 1)'},
+            line: {color: 'rgba(255, 99, 132, 1)'}
+        }];
+
+        const layout = {
+            title: 'Disease Severity Over Time',
+            xaxis: {
+                title: 'Date'
+            },
+            yaxis: {
+                title: 'Severity',
+                tickvals: [0, 1, 2],
+                ticktext: ['No Disease', 'Mild Infection', 'Severe Infection'],
+                range: [0, 2.5]
+            }
+        };
+
+        Plotly.newPlot('diseaseChart', data, layout);
+    </script>
+
+    <!-- Tooltips JavaScript -->
+    <script>
+        document.querySelectorAll('.tooltip').forEach(item => {
+            item.addEventListener('mouseover', event => {
+                const tooltipText = document.createElement('span');
+                tooltipText.className = 'tooltiptext';
+                tooltipText.innerHTML = event.target.dataset.tooltip;
+                event.target.appendChild(tooltipText);
+            });
+
+            item.addEventListener('mouseout', event => {
+                event.target.querySelector('.tooltiptext').remove();
+            });
+        });
+    </script>
+</body>
+</html>
