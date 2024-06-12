@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - AquaBrain Net</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shadcn-ui@1.0.0/dist/shadcn.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="https://dominionsolutions.co.za/wp-content/uploads/2024/02/dominionsolutions.png">
     <style>
         body {
@@ -151,27 +149,23 @@
         </div>
     </div>
     <script>
-        // Predefined test users
         const testUsers = {
             "TheeOracle": "one",
             "Thembeka": "Meow",
             "Dalton": "Meow"
         };
 
-        // Simulated storage for signed-up users
         let signedUpUsers = JSON.parse(localStorage.getItem('signedUpUsers')) || {};
 
         function login() {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            // Check if user is a predefined test user
             if (testUsers[username] && testUsers[username] === password) {
                 redirectToDashboard(username);
                 return;
             }
 
-            // Check if user is a signed-up user
             if (signedUpUsers[username] && signedUpUsers[username] === password) {
                 redirectToDashboard(username);
                 return;
@@ -181,13 +175,11 @@
         }
 
         function redirectToDashboard(username) {
-            // Retrieve user details for redirection
             const userDetails = JSON.parse(localStorage.getItem(username));
             const params = new URLSearchParams(userDetails).toString();
             window.location.href = 'dashboard.html?' + params;
         }
 
-        // Simulate a user sign-up for testing purposes
         function simulateSignUp(username, password, companyName, location, contactName, mobileNumber) {
             signedUpUsers[username] = password;
             localStorage.setItem('signedUpUsers', JSON.stringify(signedUpUsers));
@@ -201,9 +193,7 @@
             localStorage.setItem(username, JSON.stringify(userDetails));
         }
 
-        // Simulate sign-up for the test user "TheeOracle"
         simulateSignUp("TheeOracle", "one", "Oracle Inc", "Johannesburg", "TheeOracle", "1234567890");
-        // Simulate sign-up for the test user "Thembeka"
         simulateSignUp("Thembeka", "Meow", "Thembeka Farm", "Cape Town", "Thembeka", "0987654321");
     </script>
 </body>
