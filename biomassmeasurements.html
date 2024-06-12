@@ -3,62 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaBrain Net Biomass</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shadcn-ui@1.0.0/dist/shadcn.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <title>Biomass Measurements - AquaBrain Net</title>
     <link rel="icon" type="image/png" href="https://dominionsolutions.co.za/wp-content/uploads/2024/02/dominionsolutions.png">
     <style>
         body {
             background: linear-gradient(180deg, #012246, #005f73);
-            color: #f8fafc;
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            color: #f8fafc;
+            height: 100vh;
+            justify-content: space-between;
             box-sizing: border-box;
         }
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
             padding: 10px 20px;
             background-color: rgba(30, 41, 59, 0.8);
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            position: relative;
-            z-index: 1001;
+            z-index: 1000;
             border-radius: 8px;
         }
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 10px;
         }
         .logo-container img {
-            width: 100px;
-            cursor: pointer;
-            border-radius: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
         }
         .header h1 {
-            font-size: 24px;
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-        }
-        .header .farm-info {
-            font-size: 14px;
-            text-align: right;
+            font-size: 18px;
+            margin-left: 10px;
+            white-space: nowrap;
         }
         .user-profile {
             display: flex;
             align-items: center;
             gap: 15px;
             position: relative;
-            padding-right: 20px;
         }
-        .profile-pic {
+        .profile-pic, .notification-icon {
             width: 40px;
             height: 40px;
             background-color: #f8fafc;
@@ -71,21 +62,28 @@
             cursor: pointer;
             position: relative;
         }
-        .profile-pic img {
+        .profile-pic img, .notification-icon img {
             width: 100%;
             height: 100%;
             border-radius: 50%;
         }
-        .calendar {
-            font-size: 24px;
-            color: #f8fafc;
-            cursor: pointer;
+        .tooltip {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: #f8fafc;
+            color: #1e293b;
+            border-radius: 8px;
+            padding: 5px 10px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            font-size: 12px;
         }
         .dropdown {
             display: none;
             position: absolute;
             top: 50px;
-            right: 0;
+            right: 10px;
             background-color: #f8fafc;
             color: #1e293b;
             border-radius: 8px;
@@ -103,149 +101,68 @@
                 transform: translateY(0);
             }
         }
-        .menu-button {
-            font-size: 24px;
-            cursor: pointer;
-            color: #f8fafc;
-        }
-        .sidebar {
-            position: fixed;
-            left: -250px;
-            top: 0;
-            width: 250px;
-            height: 100%;
-            background-color: rgba(51, 65, 85, 0.9);
-            padding: 100px 20px 20px 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-            transition: left 0.3s;
-            z-index: 1000;
-            border-radius: 8px;
-        }
-        .sidebar a {
-            display: block;
-            color: #f8fafc;
-            text-decoration: none;
-            padding: 10px 0;
-            margin: 10px 0;
-            border-radius: 8px;
-        }
-        .sidebar a:hover {
-            text-decoration: underline;
-            background-color: rgba(30, 41, 59, 0.8);
-        }
-        .sidebar.open {
-            left: 0;
-        }
-        .container {
-            padding: 20px;
-            margin-top: 100px;
-            width: 100%;
-            max-width: 1200px;
-            text-align: center;
-        }
-        h2 {
-            margin-top: 40px;
-        }
-        .card-container {
+        .main-content {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-        .card {
-            background-color: #3b3b3b;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            width: calc(20% - 40px);
-            transition: transform 0.2s;
-        }
-        .card:hover {
-            transform: scale(1.05);
-        }
-        .card h3 {
-            margin-top: 0;
-            color: #1e90ff;
-        }
-        .card p {
-            font-size: 14px;
-            margin: 5px 0;
-        }
-        @media (max-width: 768px) {
-            .card {
-                width: calc(50% - 20px);
-            }
-            .container {
-                padding-top: 80px;
-            }
-            .sidebar {
-                width: 100%;
-                height: auto;
-                top: 60px;
-                padding: 0;
-                display: none;
-            }
-            .sidebar.open {
-                display: block;
-            }
-        }
-        @media (max-width: 480px) {
-            .card {
-                width: 100%;
-            }
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid #f8fafc;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        .chart-container {
-            display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            margin-top: 20px;
+            flex-grow: 1;
+            width: 100%;
+            padding: 20px 10px;
+            box-sizing: border-box;
         }
-        .chart {
+        .tank-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
             width: 100%;
             max-width: 800px;
-            height: 400px;
+            margin-top: 20px;
+        }
+        .tank-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: transform 0.2s;
+        }
+        .tank-item:hover {
+            transform: scale(1.05);
+        }
+        .tank-item h3 {
+            margin: 10px 0;
+        }
+        .tank-item p {
+            margin: 5px 0;
         }
         .footer {
             text-align: center;
-            margin-top: 20px;
+            padding: 20px 0;
         }
         .footer .logo-container {
-            margin-bottom: 10px;
             display: flex;
             justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
         }
         .footer .logo-container img {
-            width: 60px;
+            width: 80px;
             height: auto;
-            border-radius: 15px;
+            border-radius: 8px;
+        }
+        .footer .logo-container a {
+            text-decoration: none;
+        }
+        .footer .logo-container a:hover {
+            opacity: 0.8;
         }
         .footer .copyright {
             font-size: 12px;
             color: #f8fafc;
-        }
-        .footer img {
-            animation: rotate 20s linear infinite;
-        }
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
         }
     </style>
 </head>
@@ -257,10 +174,6 @@
             </a>
             <h1>AquaBrain Net</h1>
         </div>
-        <div class="farm-info" id="farm-info">
-            <p><strong>Farm Name:</strong> <span id="farmNameDisplay">Aqua Marine Farm</span></p>
-            <p><strong>Address:</strong> <span id="addressDisplay">Cape Town, South Africa</span></p>
-        </div>
         <div class="user-profile">
             <div class="profile-pic" onclick="toggleDropdown()">
                 <img src="https://www.svgrepo.com/show/382100/female-avatar-girl-face-woman-user-7.svg" alt="Profile Icon">
@@ -270,21 +183,10 @@
             <div class="menu-button" onclick="toggleSidebar(event)">&#9776;</div>
         </div>
     </header>
-    <nav class="sidebar" id="sidebar">
-        <a href="#overview">Overview</a>
-        <a href="#session-assignment">Session Assignment</a>
-        <a href="#analytics">Analytics</a>
-        <a href="#fish-counts">Fish Counts</a>
-        <a href="#cameras">Cameras</a>
-        <a href="#pens-setup">Pens Setup</a>
-        <a href="#formula-setup">Formula Setup</a>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="species.html">Species</a>
-    </nav>
-    <main class="container">
-        <h1>Biomass Overview</h1>
-        <div class="card-container">
-            <div class="card">
+    
+    <div class="main-content">
+        <div class="tank-grid">
+            <div class="tank-item">
                 <h3>Section C1</h3>
                 <p>Average Fish Weight: 4.42 Kg</p>
                 <p>Total Biomass: 291,028 Kg</p>
@@ -294,7 +196,7 @@
                 <p>Quantity Samples: 2,516</p>
                 <p>Session Date: 09-13-23</p>
             </div>
-            <div class="card">
+            <div class="tank-item">
                 <h3>Section C2</h3>
                 <p>Average Fish Weight: 3.536 Kg</p>
                 <p>Total Biomass: 161,840 Kg</p>
@@ -304,7 +206,7 @@
                 <p>Quantity Samples: 10,764</p>
                 <p>Session Date: 04-10-23</p>
             </div>
-            <div class="card">
+            <div class="tank-item">
                 <h3>Section C3</h3>
                 <p>Average Fish Weight: 3.877 Kg</p>
                 <p>Total Biomass: 293,361 Kg</p>
@@ -314,7 +216,7 @@
                 <p>Quantity Samples: 6,017</p>
                 <p>Session Date: 04-10-23</p>
             </div>
-            <div class="card">
+            <div class="tank-item">
                 <h3>Section C4</h3>
                 <p>Average Fish Weight: 3.774 Kg</p>
                 <p>Total Biomass: 236,361 Kg</p>
@@ -324,7 +226,7 @@
                 <p>Quantity Samples: 7,017</p>
                 <p>Session Date: 04-10-23</p>
             </div>
-            <div class="card">
+            <div class="tank-item">
                 <h3>Section C5</h3>
                 <p>Average Fish Weight: 5.43 Kg</p>
                 <p>Total Biomass: 292,928 Kg</p>
@@ -335,155 +237,20 @@
                 <p>Session Date: 09-13-23</p>
             </div>
         </div>
-        <h2>Total Biomass</h2>
-        <p>The total biomass across all sections is: 1,275,518 Kg</p>
-        <h2>Precision Biomass</h2>
-        <p>Accurate measurement of biomass for better yield.</p>
-        <h3>Biomass Data</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Weight (kg)</th>
-                    <th>Fish Count</th>
-                    <th>Average Weight (kg)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>2024-06-01</td>
-                    <td>1500</td>
-                    <td>500</td>
-                    <td>3.0</td>
-                </tr>
-                <tr>
-                    <td>2024-06-02</td>
-                    <td>1520</td>
-                    <td>505</td>
-                    <td>3.01</td>
-                </tr>
-                <tr>
-                    <td>2024-06-03</td>
-                    <td>1540</td>
-                    <td>510</td>
-                    <td>3.02</td>
-                </tr>
-                <tr>
-                    <td>2024-06-04</td>
-                    <td>1560</td>
-                    <td>515</td>
-                    <td>3.03</td>
-                </tr>
-                <tr>
-                    <td>2024-06-05</td>
-                    <td>1580</td>
-                    <td>520</td>
-                    <td>3.04</td>
-                </tr>
-                <tr>
-                    <td>2024-06-06</td>
-                    <td>1600</td>
-                    <td>525</td>
-                    <td>3.05</td>
-                </tr>
-                <tr>
-                    <td>2024-06-07</td>
-                    <td>1620</td>
-                    <td>530</td>
-                    <td>3.06</td>
-                </tr>
-            </tbody>
-        </table>
-        <h3>Biomass Growth Chart</h3>
-        <div class="chart-container">
-            <div class="chart">
-                <canvas id="biomassChart"></canvas>
-            </div>
-        </div>
-    </main>
+    </div>
+
     <div class="footer">
         <div class="logo-container">
-            <a href="dashboard.html">
-                <img src="https://dominionsolutions.co.za/wp-content/uploads/2024/02/dominionsolutions.png" alt="Dominion Solutions Logo" title="Created by: AICentral.co.za">
+            <a href="https://dominionsolutions.co.za/">
+                <img src="https://dominionsolutions.co.za/wp-content/uploads/2024/02/dominionsolutions.png" alt="Dominion Solutions Logo">
             </a>
         </div>
         <div class="copyright">
             &copy; 2024 AquaBrain Net. All rights reserved.
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script>
-        const ctx = document.getElementById('biomassChart').getContext('2d');
-        const biomassChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['2024-06-01', '2024-06-02', '2024-06-03', '2024-06-04', '2024-06-05', '2024-06-06', '2024-06-07'],
-                datasets: [
-                    {
-                        label: 'Weight (kg)',
-                        data: [1500, 1520, 1540, 1560, 1580, 1600, 1620],
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Fish Count',
-                        data: [500, 505, 510, 515, 520, 525, 530],
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Average Weight (kg)',
-                        data: [3.0, 3.01, 3.02, 3.03, 3.04, 3.05, 3.06],
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            color: '#f8fafc'
-                        }
-                    },
-                    x: {
-                        ticks: {
-                            color: '#f8fafc'
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: '#f8fafc'
-                        }
-                    }
-                }
-            }
-        });
-
-        function toggleSidebar(event) {
-            event.stopPropagation();
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('open');
-        }
-
-        function collapseSidebar(event) {
-            const sidebar = document.getElementById('sidebar');
-            if (sidebar.classList.contains('open') && !event.target.closest('.sidebar') && !event.target.closest('.menu-button')) {
-                sidebar.classList.remove('open');
-            }
-        }
-
-        document.addEventListener('click', collapseSidebar);
-        document.getElementById('sidebar').addEventListener('click', function(event) {
-            event.stopPropagation();
-        });
-
         function toggleDropdown() {
             const dropdown = document.getElementById('dropdown');
             const params = getQueryParams();
@@ -491,11 +258,9 @@
             dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
         }
 
-        function showDateTime() {
-            const date = new Date();
-            const dateString = date.toLocaleDateString();
-            const timeString = date.toLocaleTimeString();
-            alert(`Current Date: ${dateString}\nCurrent Time: ${timeString}`);
+        function toggleTooltip() {
+            const tooltip = document.getElementById('tooltip');
+            tooltip.style.display = tooltip.style.display === 'block' ? 'none' : 'block';
         }
 
         function getQueryParams() {
@@ -512,10 +277,7 @@
 
         function displayUserInfo() {
             const params = getQueryParams();
-            document.getElementById('farmNameDisplay').textContent = params.farmName || 'Aqua Marine Farm';
-            document.getElementById('addressDisplay').textContent = params.address || 'Cape Town, South Africa';
             document.getElementById('contactNameDisplay').textContent = params.contactName || 'Thembeka';
-            document.getElementById('profileInitial').textContent = params.contactName ? params.contactName.charAt(0) : 'T';
         }
 
         window.onload = displayUserInfo;
