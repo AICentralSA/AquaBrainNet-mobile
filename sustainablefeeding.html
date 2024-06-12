@@ -110,21 +110,27 @@
             padding: 20px 10px;
             box-sizing: border-box;
         }
+        .fish-selection {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
         .selected-text {
             font-size: 14px;
-            margin-bottom: 10px;
+            margin-right: 10px;
         }
         .tilapia-icon {
             width: 80px;
             height: 80px;
             border-radius: 25px;
-            margin: 10px 0;
+            margin-right: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .tilapia-caption {
             text-align: center;
             font-size: 18px;
-            margin-bottom: 20px;
         }
         .icon-grid {
             display: grid;
@@ -236,9 +242,11 @@
     </header>
     
     <div class="main-content">
-        <div class="selected-text">Fish Selected</div>
-        <img src="https://i.ibb.co/5BngHx9/DALL-E-2024-06-12-01-42-41-A-realistic-icon-of-a-South-African-Tilapia-in-a-square-aspect-ratio-The.webp" alt="Tilapia Icon" class="tilapia-icon">
-        <div class="tilapia-caption">Tilapia</div>
+        <div class="fish-selection">
+            <div class="selected-text">Fish Selected</div>
+            <img src="https://i.ibb.co/5BngHx9/DALL-E-2024-06-12-01-42-41-A-realistic-icon-of-a-South-African-Tilapia-in-a-square-aspect-ratio-The.webp" alt="Tilapia Icon" class="tilapia-icon">
+            <div class="tilapia-caption">Tilapia</div>
+        </div>
 
         <div class="icon-grid">
             <div class="icon-item" onclick="window.location.href='starter.html'">
